@@ -1,10 +1,10 @@
 // src/components/Header.jsx
 import './Header.css';
 import Logo from './../Assets/SagerLogo.png';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell } from '@fortawesome/free-regular-svg-icons';
-import { faGlobe } from '@fortawesome/free-solid-svg-icons';
-import { faExpand } from '@fortawesome/free-solid-svg-icons';
+import captureIcon from './../Assets/capture-svgrepo-com.svg';
+import globelIcon from './../Assets/language-svgrepo-com.svg';
+import bellIcon from './../Assets/bell.svg';
+
 
 function Header() {
   return (
@@ -13,14 +13,14 @@ function Header() {
         <img src={Logo} alt="Sager Logo" className="logo-img" />
       </div>
       <div className="right-section">
-        <div className="close">
-        <FontAwesomeIcon icon={faExpand} style={{"--fa-primary-color": "#fcfcfc", "--fa-secondary-color": "#fcfcfc"}} />
-      </div>
-        <span className="close">
-          <FontAwesomeIcon icon={faGlobe} />
+        <span className="icon">
+          <img src={captureIcon} alt="Capture" style={{ width: 24, height: 24 }} />
+        </span>
+        <span className="icon">
+          <img src={globelIcon} alt="Language" style={{ width: 24, height: 24 }} />
         </span>
         <span className="icon bell">
-          <FontAwesomeIcon icon={faBell} />
+          <img src={bellIcon} alt="Bell" style={{ width: 24, height: 24 }} />
           <span className="notification">8</span>
         </span>
         <div className="user-support">

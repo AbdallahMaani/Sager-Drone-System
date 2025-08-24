@@ -29,6 +29,7 @@
   cursor: pointer;
   font-size: 20px;
   color: #fff;
+  display: none; /* Hidden by default, shown on small screens if needed */
 }
 
 .right-section {
@@ -79,4 +80,62 @@
   padding-left: 1rem;
   margin-left: 0.5rem;
   align-items: center;
+}
+
+/* Responsive Design for screens below 570px */
+@media (max-width: 570px) {
+  .header {
+    flex-direction: column;
+    padding: 10px 12px;
+    align-items: flex-start;
+  }
+
+  .logo {
+    margin-bottom: 10px;
+  }
+
+  .title {
+    font-size: 16px;
+  }
+
+  .right-section {
+    align-items: flex-start;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .user-support {
+    border-left: none;
+    padding-left: 0;
+    margin-left: 0;
+    height: auto;
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .user {
+    font-size: 12px;
+  }
+
+  .support {
+    font-size: 11px;
+  }
+
+  .icon {
+    font-size: 18px;
+  }
+
+  .notification {
+    top: -3px;
+    right: -8px;
+    padding: 1px 4px;
+    font-size: 10px;
+  }
+
+  .close {
+    display: block; /* Show close button on small screens if needed for a menu toggle */
+    position: absolute;
+    top: 10px;
+    right: 12px;
+  }
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import './SidePanel.css';
@@ -9,17 +9,20 @@ const getStatusColor = (registration) => {
 };
 
 function SidePanel({ drones, onDroneClick, selectedDroneId }) {
-  const [visible, setVisible] = useState(true);
-  const listRef = useRef(null);
-  const itemRefs = useRef({});
+  const [visible, setVisible] = useState(() => (typeof window !== 'undefined' ? window.innerWidth > 770 : true));
 
+  // Auto-show on wider screens; keep user's choice on small screens
   useEffect(() => {
-    if (!selectedDroneId) return;
-    const el = itemRefs.current[selectedDroneId];
-    if (el && el.scrollIntoView) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
-    }
-  }, [selectedDroneId, drones]);
+    const onResize = () => {
+      if (window.innerWidth > 770) {
+        setVisible(true);
+      } else {
+        setVisible(false);
+      }
+    };
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
 
   if (!visible) {
     return <button className="show-panel-btn" onClick={() => setVisible(true)}>Show Side Panel</button>;
@@ -37,7 +40,7 @@ function SidePanel({ drones, onDroneClick, selectedDroneId }) {
         <span className="tab active">Drones</span>
         <span className="tab">Flights History</span>
       </div>
-      <div className="drone-list" ref={listRef}>
+      <div className="drone-list">
         {drones.length === 0 ? (
           <div className="drone-list-placeholder">No drones detected yet...</div>
         ) : (
@@ -45,7 +48,6 @@ function SidePanel({ drones, onDroneClick, selectedDroneId }) {
             {drones.map(d => (
               <li
                 key={d.id}
-                ref={(el) => { if (el) itemRefs.current[d.id] = el; }}
                 onClick={() => onDroneClick(d)}
                 className={selectedDroneId === d.id ? "selected" : ""}
               >

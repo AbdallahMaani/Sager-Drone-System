@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./DashboardPage.css";
+import Logo from './../Assets/SagerLogo.png';
+
 
 function DashboardPage({ drones }) {
   const totalDrones = drones.length;
@@ -50,7 +52,7 @@ function DashboardPage({ drones }) {
 
   return (
     <div className="dashboard-container">
-      <h2 className="dashboard-title">Drone Analytics</h2>
+      <h2 className="dashboard-title">Sager Drone Analytics</h2>
 
       {/* Stats Cards */}
       <div className="stats-grid">

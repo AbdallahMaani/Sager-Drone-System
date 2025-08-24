@@ -1,8 +1,9 @@
 .dashboardbar {
-  width: 10%;
+  width: 8%;
   background-color: #111;
   padding: 20px 0;
   height: 100%;
+  transition: width 0.3s ease;
 }
 
 .dashboardbar ul {
@@ -17,7 +18,7 @@
   align-items: center;
   padding: 15px 0;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 13px;
   color: #fff;
   text-align: center;
 }
@@ -34,4 +35,43 @@
 
 .dashboardbar li:hover {
   background-color: #222;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .dashboardbar {
+    width: 10%;
+  }
+  .dashboardbar li {
+    font-size: 12px;
+  }
+  .dashboardbar .icon {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboardbar {
+    width: 15%;
+  }
+  .dashboardbar li {
+    font-size: 10px;
+    padding: 10px 0;
+  }
+  .dashboardbar .icon {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboardbar {
+    width: 20%;
+  }
+  .dashboardbar li {
+    font-size: 8px;
+    padding: 8px 0;
+  }
+  .dashboardbar .icon {
+    font-size: 16px;
+  }
 }

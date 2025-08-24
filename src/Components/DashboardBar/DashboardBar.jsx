@@ -1,7 +1,7 @@
 // src/components/Sidebar.jsx
 import './DashboardBar.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGaugeHigh, faMapLocationDot } from '@fortawesome/free-solid-svg-icons';
+import locationIcon from './../Assets/location-svgrepo-com-2.svg';
+import dashboardIcon from './../Assets/dashboard-svgrepo-com-2.svg';
 
 function DashboardBar({ activePage, setActivePage }) {
   return (
@@ -12,7 +12,7 @@ function DashboardBar({ activePage, setActivePage }) {
           onClick={() => setActivePage("dashboard")}
         >
           <span className="icon">
-            <FontAwesomeIcon icon={faGaugeHigh} />
+            <img src={dashboardIcon} alt="Dashboard" style={{ width: 22, height: 22 }} />
           </span>
           <div>DASHBOARD</div>
         </li>
@@ -21,7 +21,7 @@ function DashboardBar({ activePage, setActivePage }) {
           onClick={() => setActivePage("map")}
         >
           <span className="icon">
-            <FontAwesomeIcon icon={faMapLocationDot} />
+            <img src={locationIcon} alt="Map" style={{ width: 22, height: 22 }} />
           </span>
           <div>MAP</div>
         </li>
