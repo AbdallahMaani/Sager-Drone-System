@@ -28,7 +28,8 @@ export default function DroneMap({ drones, onDroneClick, selectedDroneId }) {
         className="mapbox-map"
       >
         {drones.map(drone => {
-          const color = drone.registration.startsWith("B") ? "green" : "red";
+          const regPart = drone.registration.split('-')[1] || '';
+          const color = regPart[0]?.toUpperCase() === "B" ? "green" : "red";
           return (
             <Marker
               key={drone.id}

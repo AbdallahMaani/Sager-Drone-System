@@ -2,7 +2,9 @@ import './SidePanel.css';
 import { useState } from 'react';
 
 function getStatusColor(registration) {
-  return registration.startsWith("B") ? "green" : "red";
+  // After the dash, if the first letter is "B" or "b", it's green
+  const regPart = registration.split('-')[1] || '';
+  return regPart[0]?.toUpperCase() === "B" ? "green" : "red";
 }
 
 function SidePanel({ drones, onDroneClick, selectedDroneId }) {

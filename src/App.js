@@ -12,7 +12,15 @@ function App() {
   const [selectedDrone, setSelectedDrone] = useState(null);
   const [activePage, setActivePage] = useState("map"); // "map" or "dashboard"
 
-  const redDronesCount = drones.filter(d => !d.registration.startsWith("B")).length;
+  const greenDronesCount = drones.filter(d => {
+    const regPart = d.registration.split('-')[1] || '';
+    return regPart[0]?.toUpperCase() === "B";
+  }).length;
+
+  const redDronesCount = drones.filter(d => {
+    const regPart = d.registration.split('-')[1] || '';
+    return regPart[0]?.toUpperCase() !== "B";
+  }).length;
 
   return (
     <div className="app">
@@ -34,15 +42,7 @@ function App() {
             selectedDroneId={selectedDrone?.id}
           />
         ) : (
-          <div style={{
-            flex: 1,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "#fff",
-            fontSize: "2rem",
-            background: "#222"
-          }}>
+          <div className="dashboard-static">
             Dashboard Page (Static Content)
           </div>
         )}
