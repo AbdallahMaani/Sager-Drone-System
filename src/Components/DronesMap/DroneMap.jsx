@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import Map, { Marker, Popup, Source, Layer } from "react-map-gl";
+import Map, { Marker, Popup } from "react-map-gl";
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 const MAPBOX_TOKEN = "pk.eyJ1IjoiYW0tMmsiLCJhIjoiY21lcGhmeWNnMGpvcjJtcXZoOWN0dHpxdiJ9.4GWQhCQG6s_dhnxRSo4_BA";
@@ -7,33 +7,13 @@ const MAPBOX_TOKEN = "pk.eyJ1IjoiYW0tMmsiLCJhIjoiY21lcGhmeWNnMGpvcjJtcXZoOWN0dHp
 export default function DroneMap({ drones, onDroneClick, selectedDroneId }) {
   const mapRef = useRef();
   const [popupInfo, setPopupInfo] = useState(null);
-  const [paths, setPaths] = useState({});
-  const [now, setNow] = useState(Date.now()); // update each second for live flight time
+  const [now, setNow] = useState(Date.now());
 
-  useEffect(() => {
-    setPaths((prev) => {
-      const newPaths = { ...prev };
-      drones.forEach((d) => {
-        const path = newPaths[d.id] || [];
-        const last = path[path.length - 1];
-        const point = [d.lng, d.lat];
-        if (!last || last[0] !== point[0] || last[1] !== point[1]) {
-          newPaths[d.id] = [...path, point];
-        } else {
-          newPaths[d.id] = path;
-        }
-      });
-      return newPaths;
-    });
-  }, [drones]);
-
-  // update timestamp every second to recompute flight time in popup
   useEffect(() => {
     const t = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(t);
   }, []);
 
-  // when a drone is selected from the side panel, pan/zoom to it
   useEffect(() => {
     if (!selectedDroneId || !mapRef.current) return;
     const selected = drones.find(d => d.id === selectedDroneId);
@@ -78,8 +58,8 @@ export default function DroneMap({ drones, onDroneClick, selectedDroneId }) {
                 onMouseLeave={() => setPopupInfo(null)}
                 onClick={() => { if (onDroneClick) onDroneClick(drone); }}
                 style={{
-                  width: 24,
-                  height: 24,
+                  width: 27,
+                  height: 27,
                   backgroundColor: color,
                   borderRadius: "50%",
                   display: 'flex',
@@ -90,10 +70,9 @@ export default function DroneMap({ drones, onDroneClick, selectedDroneId }) {
                 }}
                 title={`Yaw: ${drone.yaw}°`}
               >
-                {/* Inner arrow indicating yaw */}
                 <svg
-                  width="14"
-                  height="14"
+                  width="22"
+                  height="22"
                   viewBox="0 0 24 24"
                   style={{ transform: `rotate(${drone.yaw}deg)` }}
                 >
@@ -121,25 +100,6 @@ export default function DroneMap({ drones, onDroneClick, selectedDroneId }) {
             </div>
           </Popup>
         )}
-
-        {Object.keys(paths).map(droneId => {
-          const coords = paths[droneId];
-          if (!coords || coords.length < 2) return null;
-          const d = drones.find(d => d.id === droneId);
-          const regPart = d?.registration.split('-')[1] || '';
-          const color = regPart[0]?.toUpperCase() === "B" ? "green" : "red";
-          const geojson = { type: "Feature", geometry: { type: "LineString", coordinates: coords } };
-
-          return (
-            <Source key={droneId} id={`path-${droneId}`} type="geojson" data={geojson}>
-              <Layer
-                id={`line-${droneId}`}
-                type="line"
-                paint={{ "line-color": color, "line-width": 2 }}
-              />
-            </Source>
-          );
-        })}
       </Map>
     </div>
   );
