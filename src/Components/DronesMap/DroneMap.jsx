@@ -11,12 +11,20 @@ export default function DroneMap({ drones, onDroneClick, selectedDroneId }) {
   const [now, setNow] = useState(Date.now()); // update each second for live flight time
 
   useEffect(() => {
-    const newPaths = { ...paths };
-    drones.forEach(d => {
-      if (!newPaths[d.id]) newPaths[d.id] = [];
-      newPaths[d.id].push([d.lng, d.lat]);
+    setPaths((prev) => {
+      const newPaths = { ...prev };
+      drones.forEach((d) => {
+        const path = newPaths[d.id] || [];
+        const last = path[path.length - 1];
+        const point = [d.lng, d.lat];
+        if (!last || last[0] !== point[0] || last[1] !== point[1]) {
+          newPaths[d.id] = [...path, point];
+        } else {
+          newPaths[d.id] = path;
+        }
+      });
+      return newPaths;
     });
-    setPaths(newPaths);
   }, [drones]);
 
   // update timestamp every second to recompute flight time in popup
@@ -116,8 +124,10 @@ export default function DroneMap({ drones, onDroneClick, selectedDroneId }) {
 
         {Object.keys(paths).map(droneId => {
           const coords = paths[droneId];
-          if (coords.length < 2) return null;
-          const color = drones.find(d => d.id === droneId)?.registration.startsWith("B") ? "green" : "red";
+          if (!coords || coords.length < 2) return null;
+          const d = drones.find(d => d.id === droneId);
+          const regPart = d?.registration.split('-')[1] || '';
+          const color = regPart[0]?.toUpperCase() === "B" ? "green" : "red";
           const geojson = { type: "Feature", geometry: { type: "LineString", coordinates: coords } };
 
           return (

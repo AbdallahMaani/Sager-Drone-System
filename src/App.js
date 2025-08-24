@@ -4,6 +4,7 @@ import DashboardBar from './Components/DashboardBar/DashboardBar.jsx';
 import SidePanel from './Components/SidePanel/SidePanel.jsx';
 import Counter from './Components/Counter/Counter.jsx';
 import DroneMap from './Components/DronesMap/DroneMap.jsx';
+import DashboardPage from './Components/DashboardPage/DashboardPage.jsx';
 import useDrones from './Components/UseDrones.js';
 import './App.css';
 
@@ -47,9 +48,7 @@ function App() {
             selectedDroneId={selectedDrone?.id}
           />
         ) : (
-          <div className="dashboard-static">
-            Dashboard Page (Static Content)
-          </div>
+          <DashboardPage drones={drones} />
         )}
       </div>
       <Counter count={redDronesCount} />

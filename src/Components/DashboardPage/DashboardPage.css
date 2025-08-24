@@ -1,0 +1,174 @@
+.dashboard-container {
+  flex: 1;
+  padding: 2rem;
+  color: #fff;
+  background: linear-gradient(135deg, #000000, #1a1a1a, #363636);
+  overflow-y: auto;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.dashboard-title {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.stats-grid {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.card {
+  flex: 1;
+  min-width: 150px;
+  padding: 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: bold;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.card .count {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.card.total {
+  background: #1a1a1a;
+  border: 2px solid #555;
+}
+
+.card.green {
+  background: rgba(0, 200, 83, 0.2);
+  border: 2px solid #00c853;
+}
+
+.card.red {
+  background: rgba(244, 67, 54, 0.2);
+  border: 2px solid #f44336;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Progress Bars */
+.progress-section {
+  margin: 2rem 0;
+}
+
+.progress-bar {
+  display: flex;
+  height: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #333;
+  margin: 0.5rem 0;
+}
+
+.green-bar {
+  background: #00c853;
+  transition: width 0.8s ease-in-out;
+}
+
+.red-bar {
+  background: #f44336;
+  transition: width 0.8s ease-in-out;
+}
+
+.progress-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+}
+
+.green-label {
+  color: #00e676;
+}
+
+.red-label {
+  color: #ff5252;
+}
+
+/* Recent Drones */
+.recent-drones {
+  margin-top: 2rem;
+}
+
+.recent-drones ul {
+  list-style: none;
+  padding: 0;
+}
+
+.drone-item {
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.6rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  transition: background 0.3s ease;
+}
+
+.drone-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.status-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 10px;
+  animation: pulse 1.5s infinite;
+}
+
+.status-dot.green {
+  background: #00e676;
+}
+
+.status-dot.red {
+  background: #ff1744;
+}
+
+.altitude {
+  margin-left: auto;
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+}
