@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import './SidePanel.css';
@@ -10,6 +10,16 @@ const getStatusColor = (registration) => {
 
 function SidePanel({ drones, onDroneClick, selectedDroneId }) {
   const [visible, setVisible] = useState(true);
+  const listRef = useRef(null);
+  const itemRefs = useRef({});
+
+  useEffect(() => {
+    if (!selectedDroneId) return;
+    const el = itemRefs.current[selectedDroneId];
+    if (el && el.scrollIntoView) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+    }
+  }, [selectedDroneId, drones]);
 
   if (!visible) {
     return <button className="show-panel-btn" onClick={() => setVisible(true)}>Show Side Panel</button>;
@@ -27,7 +37,7 @@ function SidePanel({ drones, onDroneClick, selectedDroneId }) {
         <span className="tab active">Drones</span>
         <span className="tab">Flights History</span>
       </div>
-      <div className="drone-list">
+      <div className="drone-list" ref={listRef}>
         {drones.length === 0 ? (
           <div className="drone-list-placeholder">No drones detected yet...</div>
         ) : (
@@ -35,6 +45,7 @@ function SidePanel({ drones, onDroneClick, selectedDroneId }) {
             {drones.map(d => (
               <li
                 key={d.id}
+                ref={(el) => { if (el) itemRefs.current[d.id] = el; }}
                 onClick={() => onDroneClick(d)}
                 className={selectedDroneId === d.id ? "selected" : ""}
               >

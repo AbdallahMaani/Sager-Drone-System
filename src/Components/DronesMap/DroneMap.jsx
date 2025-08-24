@@ -27,8 +27,8 @@ export default function DroneMap({ drones, onDroneClick, selectedDroneId }) {
       fly.call(map, {
         center: [selected.lng, selected.lat],
         zoom: 14,
-        speed: 1.2,
-        curve: 1.4,
+        speed: 1.3,
+        curve: 1,
         essential: true
       });
     }
@@ -71,8 +71,8 @@ export default function DroneMap({ drones, onDroneClick, selectedDroneId }) {
                 title={`Yaw: ${drone.yaw}°`}
               >
                 <svg
-                  width="22"
-                  height="22"
+                  width="24"
+                  height="24"
                   viewBox="0 0 24 24"
                   style={{ transform: `rotate(${drone.yaw}deg)` }}
                 >

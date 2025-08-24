@@ -87,21 +87,22 @@ function DashboardPage({ drones }) {
         </div>
       </div>
 
-      {/* Recent Drones */}
+      {/* Top Altitude Drones */}
       <div className="recent-drones">
-        <h3>Recent Drones</h3>
+        <h3>Highest Altitude Drones</h3>
         <ul>
-          {drones.slice(0, 6).map((d) => (
-            <li key={d.id} className="drone-item">
-              <span
-                className={`status-dot ${
-                  isGreenReg(d.registration) ? "green" : "red"
-                }`}
-              />
-              <strong>{d.registration}</strong> – Pilot: {d.pilot}
-              <span className="altitude"> (Alt: {d.altitude}m)</span>
-            </li>
-          ))}
+          {[...drones]
+            .sort((a, b) => (Number(b.altitude) || 0) - (Number(a.altitude) || 0))
+            .slice(0, 6)
+            .map((d) => (
+              <li key={d.id} className="drone-item">
+                <span
+                  className={`status-dot ${isGreenReg(d.registration) ? "green" : "red"}`}
+                />
+                <strong>{d.registration}</strong> – Pilot: {d.pilot}
+                <span className="altitude"> (Alt: {d.altitude}m)</span>
+              </li>
+            ))}
         </ul>
       </div>
     </div>
