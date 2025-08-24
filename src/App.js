@@ -1,23 +1,39 @@
-import logo from './logo.svg';
+import { useState } from "react";
+import Header from './Components/Header/Header.jsx';
+import DashboardBar from './Components/DashboardBar/DashboardBar.jsx';
+import SidePanel from './Components/SidePanel/SidePanel.jsx';
+import Counter from './Components/Counter/Counter.jsx';
+import DroneMap from './Components/DronesMap/DroneMap.jsx';
+import useDrones from './Components/UseDrones.js';
 import './App.css';
 
 function App() {
+  const drones = useDrones();
+  const [selectedDrone, setSelectedDrone] = useState(null);
+
+  const redDronesCount = drones.filter(d => !d.registration.startsWith("B")).length;
+
+  const handleDroneClick = (drone) => {
+    setSelectedDrone(drone);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <Header />
+      <div className="main-content">
+        <DashboardBar />
+        <SidePanel
+          drones={drones}
+          onDroneClick={handleDroneClick}
+          selectedDroneId={selectedDrone?.id}
+        />
+        <DroneMap
+          drones={drones}
+          onDroneClick={handleDroneClick}
+          selectedDroneId={selectedDrone?.id}
+        />
+      </div>
+      <Counter count={redDronesCount} />
     </div>
   );
 }

@@ -1,38 +1,63 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* General layout */
+.app {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  height: 100vh;
+  background-color: #000;
+  font-family: sans-serif;
+  position: relative;
 }
 
-.App-link {
-  color: #61dafb;
+.header {
+  z-index: 3;
+  position: relative;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.main-content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  z-index: 3; /* panels in front */
+}
+
+/* Map container */
+.map-container {
+  position: absolute;
+  top: 0px;      /* header height */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;     /* behind panels */
+}
+
+/* Mapbox map fill */
+.mapbox-map {
+  width: 100%;
+  height: 100%;
+}
+
+/* Popup style */
+.mapboxgl-popup-content {
+  background: #222;
+  color: #fff;
+  font-size: 14px;
+  border-radius: 6px;
+}
+
+.mapboxgl-popup-tip {
+  border-top-color: #222;
+}
+
+/* Hide logo & bottom controls */
+.mapboxgl-ctrl-logo,
+.mapboxgl-ctrl-bottom-left {
+  display: none;
+}
+
+/* Panel & sidebar always in front */
+.side-panel,
+.dashboardbar {
+  z-index: 3;
+  pointer-events: auto;
 }

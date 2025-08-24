@@ -1,0 +1,22 @@
+/* src/components/Counter.css */
+.counter {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background-color: #f0ededf3;
+  color: #070707;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  z-index: 10;
+}
+
+.dot
+{
+  background-color: black;
+  color: white;
+  border-radius: 50%;
+  padding: 4px 8px;
+  margin-right: 5px;
+  }

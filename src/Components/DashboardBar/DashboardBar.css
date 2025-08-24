@@ -1,0 +1,37 @@
+.dashboardbar {
+  width: 10%;
+  background-color: #111;
+  padding: 20px 0;
+  height: 100%;
+}
+
+.dashboardbar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dashboardbar li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px 0;
+  cursor: pointer;
+  font-size: 16px;
+  color: #fff;
+  text-align: center;
+}
+
+.dashboardbar li.active {
+  background-color: #1a1a1a;
+  border-left: 4px solid red;
+}
+
+.dashboardbar .icon {
+  margin-bottom: 6px;
+  font-size: 24px;
+}
+
+.dashboardbar li:hover {
+  background-color: #222;
+}

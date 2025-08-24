@@ -1,0 +1,58 @@
+.side-panel {
+  width: 300px;
+  background-color: #111; 
+  padding: 10px;
+  height: 100%;
+  overflow-y: auto;
+  position: relative;
+  z-index: 3; /* Float above the map */
+  margin: .6rem;
+  box-shadow: 0px 0 25px 5px rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+
+}
+
+.panel-header {
+  display: flex;
+  padding: 10px 20px;
+  border-bottom: 2px solid #08080800;
+}
+
+.tab {
+  margin-right: 20px;
+  cursor: pointer;
+  color: #aaaaaa;
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.tab.active {
+  color: #fff;
+  border-bottom: 2px solid #ff0000;
+}
+
+.drone-list-placeholder {
+  padding: 20px;
+  color: #aaa;
+}
+
+.drone-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.drone-list li {
+  padding: 10px;
+  cursor: pointer;
+  color: #fff;
+}
+
+.drone-list li:hover {
+  background-color: #222;
+}
+
+.drone-list li.selected {
+  background-color: #333;
+  border-left: 3px solid red;
+}
