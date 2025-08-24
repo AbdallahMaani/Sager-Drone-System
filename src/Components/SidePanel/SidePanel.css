@@ -56,3 +56,86 @@
   background-color: #333;
   border-left: 3px solid red;
 }
+
+.show-panel-btn {
+  position: relative;
+  top: 0;
+  left: 0;
+  z-index: 20;
+  padding: 8px 16px;
+  border-radius: 5px;
+  background: #222;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin: 10px;
+  width: 300px; /* Match the panel width */
+  height: 40px; /* Optional: match panel header height */
+  display: block;
+}
+
+.drone-info-grid {
+  display: grid;
+  grid-template-areas:
+    "title status"
+    "serial registration"
+    "pilot organization";
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 8px 16px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.drone-title {
+  grid-area: title;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.drone-status {
+  grid-area: status;
+  justify-self: end;
+}
+
+.drone-status-dot {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  margin-left: 8px;
+}
+
+.drone-serial {
+  grid-area: serial;
+  color: #fff;
+}
+
+.drone-registration {
+  grid-area: registration;
+  color: #fff;
+}
+
+.drone-pilot {
+  grid-area: pilot;
+  color: #fff;
+}
+
+.drone-organization {
+  grid-area: organization;
+  color: #fff;
+}
+
+.label {
+  font-size: 0.95rem;
+  color: #aaa;
+  margin-right: 6px;
+}
+
+.value {
+  font-weight: bold;
+  color: #fff;
+  font-size: 1.05rem;
+}

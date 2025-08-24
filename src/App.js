@@ -10,6 +10,7 @@ import './App.css';
 function App() {
   const drones = useDrones();
   const [selectedDrone, setSelectedDrone] = useState(null);
+  const [activePage, setActivePage] = useState("map"); // "map" or "dashboard"
 
   const redDronesCount = drones.filter(d => !d.registration.startsWith("B")).length;
 
@@ -17,17 +18,34 @@ function App() {
     <div className="app">
       <Header />
       <div className="main-content">
-        <DashboardBar />
+        <DashboardBar
+          activePage={activePage}
+          setActivePage={setActivePage}
+        />
         <SidePanel
           drones={drones}
           onDroneClick={setSelectedDrone}
           selectedDroneId={selectedDrone?.id}
         />
-        <DroneMap
-          drones={drones}
-          onDroneClick={setSelectedDrone}
-          selectedDroneId={selectedDrone?.id}
-        />
+        {activePage === "map" ? (
+          <DroneMap
+            drones={drones}
+            onDroneClick={setSelectedDrone}
+            selectedDroneId={selectedDrone?.id}
+          />
+        ) : (
+          <div style={{
+            flex: 1,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "#fff",
+            fontSize: "2rem",
+            background: "#222"
+          }}>
+            Dashboard Page (Static Content)
+          </div>
+        )}
       </div>
       <Counter count={redDronesCount} />
     </div>
