@@ -13,10 +13,6 @@ function App() {
 
   const redDronesCount = drones.filter(d => !d.registration.startsWith("B")).length;
 
-  const handleDroneClick = (drone) => {
-    setSelectedDrone(drone);
-  };
-
   return (
     <div className="app">
       <Header />
@@ -24,12 +20,12 @@ function App() {
         <DashboardBar />
         <SidePanel
           drones={drones}
-          onDroneClick={handleDroneClick}
+          onDroneClick={setSelectedDrone}
           selectedDroneId={selectedDrone?.id}
         />
         <DroneMap
           drones={drones}
-          onDroneClick={handleDroneClick}
+          onDroneClick={setSelectedDrone}
           selectedDroneId={selectedDrone?.id}
         />
       </div>

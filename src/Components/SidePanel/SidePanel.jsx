@@ -23,10 +23,10 @@ function SidePanel({ drones, onDroneClick, selectedDroneId }) {
           <ul>
             {drones.map(d => (
               <li
-                key={d.serial}
+                key={d.id}
                 onClick={() => onDroneClick(d)}
                 style={{
-                  backgroundColor: selectedDroneId === d.id ? "#ddd" : "transparent",
+                  backgroundColor: selectedDroneId === d.id ? "#333" : "transparent",
                   cursor: "pointer"
                 }}
               >

@@ -22,7 +22,7 @@ export default function DroneMap({ drones, onDroneClick, selectedDroneId }) {
     <div className="map-container">
       <Map
         ref={mapRef}
-        initialViewState={{ latitude: 0, longitude: 0, zoom: 2 }}
+        initialViewState={{ latitude: 31.9487, longitude: 35.9313, zoom: 10 }}
         mapStyle="mapbox://styles/mapbox/dark-v10"
         mapboxAccessToken={MAPBOX_TOKEN}
         className="mapbox-map"
