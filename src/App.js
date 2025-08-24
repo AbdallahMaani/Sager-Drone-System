@@ -22,6 +22,11 @@ function App() {
     return regPart[0]?.toUpperCase() !== "B";
   }).length;
 
+  const handleDroneClick = (drone) => {
+    setSelectedDrone(drone);
+    setActivePage("map"); // ensure map is visible before flyTo
+  };
+
   return (
     <div className="app">
       <Header />
@@ -32,13 +37,13 @@ function App() {
         />
         <SidePanel
           drones={drones}
-          onDroneClick={setSelectedDrone}
+          onDroneClick={handleDroneClick}
           selectedDroneId={selectedDrone?.id}
         />
         {activePage === "map" ? (
           <DroneMap
             drones={drones}
-            onDroneClick={setSelectedDrone}
+            onDroneClick={handleDroneClick}
             selectedDroneId={selectedDrone?.id}
           />
         ) : (

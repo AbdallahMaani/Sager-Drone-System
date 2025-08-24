@@ -1,5 +1,7 @@
 import './SidePanel.css';
 import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 function getStatusColor(registration) {
   // After the dash, if the first letter is "B" or "b", it's green
@@ -28,17 +30,9 @@ function SidePanel({ drones, onDroneClick, selectedDroneId }) {
         <button
           className="close-panel-btn"
           onClick={() => setVisible(false)}
-          style={{
-            marginLeft: "10px",
-            background: "transparent",
-            border: "none",
-            color: "#fff",
-            fontSize: "20px",
-            cursor: "pointer"
-          }}
           title="Close Panel"
         >
-          ×
+          <FontAwesomeIcon icon={faTimes} />
         </button>
       </div>
 

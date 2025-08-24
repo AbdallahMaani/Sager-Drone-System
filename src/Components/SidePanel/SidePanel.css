@@ -170,3 +170,25 @@
   color: #fff;
   font-size: 1.05rem;
 }
+
+.close-panel-btn {
+  background: rgba(255, 255, 255, 0.7);
+  border: none;
+  color: black;
+  border-radius: 50%;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.4s, transform 0.4s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: .4rem;
+  height: 22px;
+    width: 22px;
+
+}
+
+.close-panel-btn:hover {
+  background:rgba(246, 243, 243, 0.921);
+  transform: scale(1.1);
+}
