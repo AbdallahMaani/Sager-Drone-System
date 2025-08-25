@@ -9,7 +9,7 @@ export default function useDrones() {
 
   useEffect(() => {
     const socket = io("https://sager-backend.onrender.com/", { transports: ["polling"] });
-    socket.on("connect", () => console.log("✅ Connected to backend:", socket.id));
+    socket.on("connect", () => console.log("Connected to backend:", socket.id));
 
     socket.on("message", (data) => {
       setDrones((prevDrones) => {

@@ -167,15 +167,15 @@
 }
 
 .label {
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   color: #aaa;
-  margin-right: 6px;
+  margin-right: 13px;
 }
 
 .value {
   font-weight: bold;
   color: #fff;
-  font-size: 1.05rem;
+  font-size: 1rem;
 }
 
 .close-panel-btn {

@@ -9,16 +9,17 @@ function DashboardBar({ activePage, setActivePage }) {
       <ul>
         <li
           className={activePage === "dashboard" ? "active" : ""}
-          onClick={() => setActivePage("dashboard")}
+          onClick={() => setActivePage("dashboard")} //set the active page to dashboard when clicked
         >
           <span className="icon">
             <img src={dashboardIcon} alt="Dashboard" style={{ width: 22, height: 22 }} />
           </span>
           <div>DASHBOARD</div>
         </li>
+        
         <li
           className={activePage === "map" ? "active" : ""}
-          onClick={() => setActivePage("map")}
+          onClick={() => setActivePage("map")} // set the active page to map when clicked
         >
           <span className="icon">
             <img src={locationIcon} alt="Map" style={{ width: 22, height: 22 }} />

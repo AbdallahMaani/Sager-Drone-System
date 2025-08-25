@@ -9,13 +9,13 @@ const getStatusColor = (registration) => {
 };
 
 function SidePanel({ drones, onDroneClick, selectedDroneId, visible, setVisible }) {
-  // Auto-show on wider screens; keep user's choice on small screens
+  // Auto-show on wider screens; keep user's choice on small screens. (user can toggle show sidepanel button)
   useEffect(() => {
     const onResize = () => {
       if (window.innerWidth > 770) {
-        setVisible(true);
+        setVisible(true); // Always show on wider screens
       } else {
-        setVisible(false);
+        setVisible(false); // Hide on small screens unless user toggles show sidepanel button
       }
     };
     
@@ -23,7 +23,7 @@ function SidePanel({ drones, onDroneClick, selectedDroneId, visible, setVisible 
     return () => window.removeEventListener('resize', onResize);
   }, [setVisible]);
 
-  // Only render the button when hidden, not the panel
+  // Only render the button when the side panel is hidden.
   if (!visible) {
     return (
       <button
@@ -39,10 +39,11 @@ function SidePanel({ drones, onDroneClick, selectedDroneId, visible, setVisible 
     <div className="side-panel">
       <div className="panel-header" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <div className="title">DRONE FLYING</div>
-        <button className="close-panel-btn" onClick={() => setVisible(false)} title="Close Panel">
+        <button className="close-panel-btn" onClick={() => setVisible(false)} title="Close Panel"> {/* Only show when panel is visible*/}
           <FontAwesomeIcon icon={faTimes} />
         </button>
       </div>
+
       <div className="panel-header">
         <span className="tab active">Drones</span>
         <span className="tab">Flights History</span>
@@ -56,7 +57,7 @@ function SidePanel({ drones, onDroneClick, selectedDroneId, visible, setVisible 
               <li
                 key={d.id}
                 onClick={() => onDroneClick(d)}
-                className={selectedDroneId === d.id ? "selected" : ""}
+                className={selectedDroneId === d.id ? "selected" : ""} // Highlight the drone if selected in the map
               >
                 <div className="drone-info-grid">
                   <div className="drone-title"><strong>{d.name}</strong></div>
@@ -64,7 +65,7 @@ function SidePanel({ drones, onDroneClick, selectedDroneId, visible, setVisible 
                     <span
                       className="drone-status-dot"
                       style={{ background: getStatusColor(d.registration) }}
-                      title={getStatusColor(d.registration) === "green" ? "Can fly" : "Cannot fly"}
+                      title={getStatusColor(d.registration) === "green" ? "Can fly" : "Cannot fly"} //Green or Red color dependes on the status of the drone 
                     />
                   </div>
                   <div className="drone-serial">
