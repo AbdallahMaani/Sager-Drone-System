@@ -12,22 +12,18 @@ function App() {
   const drones = useDrones();
   const [selectedDrone, setSelectedDrone] = useState(null);
   const [activePage, setActivePage] = useState("map");
+  const [sidePanelVisible, setSidePanelVisible] = useState(() => (typeof window !== 'undefined' ? window.innerWidth > 770 : true));
 
   const handleDroneClick = (drone) => {
     setSelectedDrone(drone);
     setActivePage("map");
+    setSidePanelVisible(true); // <-- Show side panel when a drone is clicked
   };
 
   const greenDronesCount = useMemo(() => 
     drones.filter(d => {
       const regPart = d.registration.split('-')[1] || '';
       return regPart[0]?.toUpperCase() === "B";
-    }).length, [drones]);
-
-  const redDronesCount = useMemo(() => 
-    drones.filter(d => {
-      const regPart = d.registration.split('-')[1] || '';
-      return regPart[0]?.toUpperCase() !== "B";
     }).length, [drones]);
 
   return (
@@ -38,19 +34,21 @@ function App() {
         <SidePanel 
           drones={drones} 
           onDroneClick={handleDroneClick} 
-          selectedDroneId={selectedDrone?.id} 
+          selectedDroneId={selectedDrone?.id}
+          visible={sidePanelVisible}
+          setVisible={setSidePanelVisible}
         />
         {activePage === "map" ? (
           <DroneMap 
             drones={drones} 
             onDroneClick={handleDroneClick} 
-            selectedDroneId={selectedDrone?.id} 
+            selectedDroneId={selectedDrone?.id}
           />
         ) : (
           <DashboardPage drones={drones} />
         )}
       </div>
-      <Counter count={redDronesCount} />
+      <Counter count={greenDronesCount} />
     </div>
   );
 }

@@ -24,8 +24,16 @@ function SidePanel({ drones, onDroneClick, selectedDroneId }) {
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
+  // Only render the button when hidden, not the panel
   if (!visible) {
-    return <button className="show-panel-btn" onClick={() => setVisible(true)}>Show Side Panel</button>;
+    return (
+      <button
+        className="show-panel-btn fixed-btn"
+        onClick={() => setVisible(true)}
+      >
+        Show Side Panel
+      </button>
+    );
   }
 
   return (
