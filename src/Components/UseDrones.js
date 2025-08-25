@@ -8,7 +8,7 @@ export default function useDrones() {
   const pathsByRegistration = useRef({});
 
   useEffect(() => {
-    const socket = io("http://localhost:9013", { transports: ["polling"] });
+    const socket = io("https://sager-backend.onrender.com/", { transports: ["polling"] });
     socket.on("connect", () => console.log("✅ Connected to backend:", socket.id));
 
     socket.on("message", (data) => {
