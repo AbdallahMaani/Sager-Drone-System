@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import './SidePanel.css';
@@ -8,9 +8,7 @@ const getStatusColor = (registration) => {
   return regPart[0]?.toUpperCase() === "B" ? "green" : "red";
 };
 
-function SidePanel({ drones, onDroneClick, selectedDroneId }) {
-  const [visible, setVisible] = useState(() => (typeof window !== 'undefined' ? window.innerWidth > 770 : true));
-
+function SidePanel({ drones, onDroneClick, selectedDroneId, visible, setVisible }) {
   // Auto-show on wider screens; keep user's choice on small screens
   useEffect(() => {
     const onResize = () => {
@@ -20,9 +18,10 @@ function SidePanel({ drones, onDroneClick, selectedDroneId }) {
         setVisible(false);
       }
     };
+    
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
-  }, []);
+  }, [setVisible]);
 
   // Only render the button when hidden, not the panel
   if (!visible) {

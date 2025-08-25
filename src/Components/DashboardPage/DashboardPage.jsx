@@ -50,6 +50,29 @@ function DashboardPage({ drones }) {
     animateCounter("red", redDrones);
   }, [totalDrones, greenDrones, redDrones]);
 
+  // Helper to format duration
+  function formatDuration(ms) {
+    const sec = Math.floor(ms / 1000) % 60;
+    const min = Math.floor(ms / 60000) % 60;
+    const hr = Math.floor(ms / 3600000);
+    return `${hr}h ${min}m ${sec}s`;
+  }
+
+  // Find oldest drone
+  const now = Date.now();
+  const oldestDrone = drones.reduce((oldest, d) => {
+    if (!d.firstSeen) return oldest;
+    if (!oldest || d.firstSeen < oldest.firstSeen) return d;
+    return oldest;
+  }, null);
+
+  // Find drone with most path points
+  const mostPointsDrone = drones.reduce((max, d) => {
+    const points = d.path ? d.path.length : 0;
+    if (!max || points > (max.path ? max.path.length : 0)) return d;
+    return max;
+  }, null);
+
   return (
     <div className="dashboard-container">
       <h2 className="dashboard-title">Sager Drone Analytics</h2>
@@ -105,6 +128,43 @@ function DashboardPage({ drones }) {
                 <span className="altitude"> (Alt: {d.altitude}m)</span>
               </li>
             ))}
+        </ul>
+      </div>
+
+      {/* Special Stats - styled like Highest Altitude Drones */}
+      <div className="recent-drones">
+        <h3>Special Stats</h3>
+        <ul>
+          <li className="drone-item">
+            <span
+              className={`status-dot ${oldestDrone && isGreenReg(oldestDrone.registration) ? "green" : "red"}`}
+            />
+            <strong>
+              {oldestDrone ? oldestDrone.registration : "N/A"}
+            </strong>
+            {" – "}
+            <span>
+              Oldest Flight Time:{" "}
+              {oldestDrone
+                ? formatDuration(now - oldestDrone.firstSeen)
+                : "N/A"}
+            </span>
+          </li>
+          <li className="drone-item">
+            <span
+              className={`status-dot ${mostPointsDrone && isGreenReg(mostPointsDrone.registration) ? "green" : "red"}`}
+            />
+            <strong>
+              {mostPointsDrone ? mostPointsDrone.registration : "N/A"}
+            </strong>
+            {" – "}
+            <span>
+              Most Distance (Points):{" "}
+              {mostPointsDrone
+                ? `${mostPointsDrone.path.length} points`
+                : "N/A"}
+            </span>
+          </li>
         </ul>
       </div>
     </div>

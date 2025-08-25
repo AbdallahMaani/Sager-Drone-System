@@ -14,10 +14,10 @@ function App() {
   const [activePage, setActivePage] = useState("map");
   const [sidePanelVisible, setSidePanelVisible] = useState(() => (typeof window !== 'undefined' ? window.innerWidth > 770 : true));
 
+  // Show side panel when a drone is clicked on the map
   const handleDroneClick = (drone) => {
     setSelectedDrone(drone);
-    setActivePage("map");
-    setSidePanelVisible(true); // <-- Show side panel when a drone is clicked
+    setSidePanelVisible(true);
   };
 
   const greenDronesCount = useMemo(() => 
@@ -31,22 +31,22 @@ function App() {
       <Header />
       <div className="main-content">
         <DashboardBar activePage={activePage} setActivePage={setActivePage} />
-        <SidePanel 
-          drones={drones} 
-          onDroneClick={handleDroneClick} 
+        <SidePanel
+          drones={drones}
+          onDroneClick={handleDroneClick}
           selectedDroneId={selectedDrone?.id}
           visible={sidePanelVisible}
           setVisible={setSidePanelVisible}
         />
-        {activePage === "map" ? (
-          <DroneMap 
-            drones={drones} 
-            onDroneClick={handleDroneClick} 
+        {activePage === "map" && (
+          <DroneMap
+            drones={drones}
+            onDroneClick={handleDroneClick}
             selectedDroneId={selectedDrone?.id}
+            sidePanelVisible={sidePanelVisible}
           />
-        ) : (
-          <DashboardPage drones={drones} />
         )}
+        {activePage !== "map" && <DashboardPage drones={drones} />}
       </div>
       <Counter count={greenDronesCount} />
     </div>
