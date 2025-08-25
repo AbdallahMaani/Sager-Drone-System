@@ -144,7 +144,7 @@ export default function DroneMap({ drones, onDroneClick, selectedDroneId }) {
                     height: '70%',
                     transform: `rotate(${drone.yaw}deg)`,
                     filter: `hue-rotate(${color === 'green' ? '120deg' : '0deg'})`,
-                  }} // Drone icon styling
+                  }} //
                 />
                 {/* Arrow extending outward based on yaw */}
                 <div

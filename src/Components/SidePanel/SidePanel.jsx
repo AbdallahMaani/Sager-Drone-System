@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import './SidePanel.css';
@@ -9,21 +9,45 @@ const getStatusColor = (registration) => {
 };
 
 function SidePanel({ drones, onDroneClick, selectedDroneId, visible, setVisible }) {
-  // Auto-show on wider screens; keep user's choice on small screens. (user can toggle show sidepanel button)
+  const droneListRef = useRef(null);
+  const itemRefs = useRef({});
+  const hasScrolledRef = useRef(false); // Track whether we already scrolled to the selected drone
+
+  // Auto-show on wider screens; keep user's choice on small screens
   useEffect(() => {
     const onResize = () => {
-      if (window.innerWidth > 770) {
-        setVisible(true); // Always show on wider screens
-      } else {
-        setVisible(false); // Hide on small screens unless user toggles show sidepanel button
-      }
+      if (window.innerWidth > 770) setVisible(true);
+      else setVisible(false);
     };
-    
-    window.addEventListener('resize', onResize); 
-    return () => window.removeEventListener('resize', onResize); 
-  }, [setVisible]); // Empty dependency array to run only once on mount
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, [setVisible]);
 
-  // Only render the button when the side panel is hidden.
+  // Scroll selected drone into view inside the side panel **only once per selection**
+  useEffect(() => {
+    hasScrolledRef.current = false; // Reset scroll flag when selection changes
+  }, [selectedDroneId]);
+
+  useEffect(() => {
+    if (!selectedDroneId || !visible || hasScrolledRef.current) return;
+
+    const container = droneListRef.current;
+    const el = itemRefs.current[selectedDroneId];
+    if (el && container) {
+      const containerHeight = container.clientHeight;
+      const elOffsetTop = el.offsetTop;
+      const elHeight = el.clientHeight;
+
+      container.scrollTo({
+        top: elOffsetTop - containerHeight / 2 + elHeight / 2,
+        behavior: 'smooth'
+      });
+
+      hasScrolledRef.current = true; // mark as scrolled for this selection
+    }
+  }, [selectedDroneId, visible, drones]);
+
+  // Only render the "Show Panel" button when panel is hidden
   if (!visible) {
     return (
       <button
@@ -39,7 +63,7 @@ function SidePanel({ drones, onDroneClick, selectedDroneId, visible, setVisible 
     <div className="side-panel">
       <div className="panel-header" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <div className="title">DRONE FLYING</div>
-        <button className="close-panel-btn" onClick={() => setVisible(false)} title="Close Panel"> {/* Only show when panel is visible*/}
+        <button className="close-panel-btn" onClick={() => setVisible(false)} title="Close Panel">
           <FontAwesomeIcon icon={faTimes} />
         </button>
       </div>
@@ -48,7 +72,8 @@ function SidePanel({ drones, onDroneClick, selectedDroneId, visible, setVisible 
         <span className="tab active">Drones</span>
         <span className="tab">Flights History</span>
       </div>
-      <div className="drone-list">
+
+      <div className="drone-list" ref={droneListRef} style={{ overflowY: 'auto', maxHeight: 'calc(100% - 100px)' }}>
         {drones.length === 0 ? (
           <div className="drone-list-placeholder">No drones detected yet...</div>
         ) : (
@@ -56,8 +81,9 @@ function SidePanel({ drones, onDroneClick, selectedDroneId, visible, setVisible 
             {drones.map(d => (
               <li
                 key={d.id}
+                ref={(el) => { if (el) itemRefs.current[d.id] = el; }}
                 onClick={() => onDroneClick(d)}
-                className={selectedDroneId === d.id ? "selected" : ""} // Highlight the drone if selected in the map
+                className={selectedDroneId === d.id ? "selected" : ""}
               >
                 <div className="drone-info-grid">
                   <div className="drone-title"><strong>{d.name}</strong></div>
@@ -65,7 +91,7 @@ function SidePanel({ drones, onDroneClick, selectedDroneId, visible, setVisible 
                     <span
                       className="drone-status-dot"
                       style={{ background: getStatusColor(d.registration) }}
-                      title={getStatusColor(d.registration) === "green" ? "Can fly" : "Cannot fly"} //Green or Red color dependes on the status of the drone 
+                      title={getStatusColor(d.registration) === "green" ? "Can fly" : "Cannot fly"}
                     />
                   </div>
                   <div className="drone-serial">
