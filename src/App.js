@@ -18,6 +18,7 @@ function App() {
   const handleDroneClick = (drone) => {
     setSelectedDrone(drone);
     setSidePanelVisible(true);
+    setActivePage("map"); // Always navigate to map view
   };
 
   const greenDronesCount = useMemo(() => 
