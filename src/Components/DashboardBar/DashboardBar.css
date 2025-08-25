@@ -1,6 +1,6 @@
 .dashboardbar {
   width: 8%;
-  background-color: #111;
+  background-color: #181818;
   padding: 20px 0;
   height: 100%;
   transition: width 0.3s ease;
@@ -24,7 +24,7 @@
 }
 
 .dashboardbar li.active {
-  background-color: #1a1a1a;
+  background-color: #333;
   border-left: 4px solid red;
 }
 
