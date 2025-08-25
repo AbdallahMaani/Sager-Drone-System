@@ -19,9 +19,9 @@ function SidePanel({ drones, onDroneClick, selectedDroneId, visible, setVisible 
       }
     };
     
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, [setVisible]);
+    window.addEventListener('resize', onResize); 
+    return () => window.removeEventListener('resize', onResize); 
+  }, [setVisible]); // Empty dependency array to run only once on mount
 
   // Only render the button when the side panel is hidden.
   if (!visible) {

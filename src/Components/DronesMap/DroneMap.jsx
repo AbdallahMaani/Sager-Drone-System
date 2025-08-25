@@ -144,7 +144,7 @@ export default function DroneMap({ drones, onDroneClick, selectedDroneId }) {
                     height: '70%',
                     transform: `rotate(${drone.yaw}deg)`,
                     filter: `hue-rotate(${color === 'green' ? '120deg' : '0deg'})`,
-                  }}
+                  }} // Drone icon styling
                 />
                 {/* Arrow extending outward based on yaw */}
                 <div
@@ -164,7 +164,7 @@ export default function DroneMap({ drones, onDroneClick, selectedDroneId }) {
                     pointerEvents: 'none',
                     // Dynamic positioning based on yaw
                     transform: `translate(${xOffset}px, ${yOffset}px) rotate(${drone.yaw}deg)`,
-                  }}
+                  }} // Arrow styling
                 />
               </div>
             </Marker>
@@ -185,7 +185,7 @@ export default function DroneMap({ drones, onDroneClick, selectedDroneId }) {
               <div>Path points: {popupInfo.path ? popupInfo.path.length : 0}</div>
             </div>
           </Popup>
-        )}
+        )} {/* show popup on hover */}
       </Map>
     </div>
   );
@@ -197,5 +197,5 @@ function formatDuration(ms) {
   const h = Math.floor(totalSeconds / 3600);
   const m = Math.floor((totalSeconds % 3600) / 60);
   const s = totalSeconds % 60;
-  return `${pad(h)}:${pad(m)}:${pad(s)}`;
+  return `${pad(h)}:${pad(m)}:${pad(s)}`; //   Turn Milliseconds into  HH:MM:SS format
 }

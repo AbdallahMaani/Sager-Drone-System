@@ -75,8 +75,7 @@ function DashboardPage({ drones }) {
 
   return (
     <div className="dashboard-container">
-      <h2 className="dashboard-title">Sager Drone Analytics</h2>
-
+      <h2 className="dashboard-title">Live Sager Drone Analytics</h2>
       {/* Stats Cards */}
       <div className="stats-grid">
         <div className="card total">

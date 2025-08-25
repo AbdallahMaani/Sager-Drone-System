@@ -21,7 +21,7 @@ function App() {
     setActivePage("map"); // Always navigate to map view after click on a drone (if the user was on the dashboard page)
   };
 
-  const greenDronesCount = useMemo(() => 
+  const greenDronesCount = useMemo(() => // Count of green drones via useMemo state to optimize performance to avoid recalculating on every render
     drones.filter(d => {
       const regPart = d.registration.split('-')[1] || '';
       return regPart[0]?.toUpperCase() === "B";
@@ -43,8 +43,7 @@ function App() {
           <DroneMap // Main map component displaying drones
             drones={drones} // Pass all drones to map for rendering
             onDroneClick={handleDroneClick} // Handle drone selection from map
-            selectedDroneId={selectedDrone?.id} // Highlight selected drone on map
-            sidePanelVisible={sidePanelVisible} 
+            selectedDroneId={selectedDrone?.id} 
           />
         )}
         {activePage !== "map" && <DashboardPage drones={drones} />}  {/* Dashboard view showing stats */}
