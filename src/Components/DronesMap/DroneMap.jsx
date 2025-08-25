@@ -128,7 +128,12 @@ export default function DroneMap({ drones, onDroneClick, selectedDroneId }) {
                   alignItems: 'center',
                   justifyContent: 'center',
                   border: selectedDroneId === drone.id ? "3px solid yellow" : "none",
-                  cursor: "pointer"
+                  cursor: "pointer",
+
+                  /* requested animation/transition values */
+                  opacity: 0,
+                  animation: 'fadeInPanelBtn 0.6s forwards',
+                  transition: 'background 0.3s, transform 0.3s, width 0.3s ease'
                 }}
                 onMouseEnter={() => setPopupInfo(drone)}
                 onMouseLeave={() => setPopupInfo(null)}
@@ -144,7 +149,7 @@ export default function DroneMap({ drones, onDroneClick, selectedDroneId }) {
                     height: '70%',
                     transform: `rotate(${drone.yaw}deg)`,
                     filter: `hue-rotate(${color === 'green' ? '120deg' : '0deg'})`,
-                  }} //
+                  }}
                 />
                 {/* Arrow extending outward based on yaw */}
                 <div
@@ -155,16 +160,19 @@ export default function DroneMap({ drones, onDroneClick, selectedDroneId }) {
                     borderLeft: '10px solid transparent',
                     borderRight: '10px solid transparent',
                     borderBottom: `15px solid ${color}`, // Match dot color
-                    transform: `rotate(${drone.yaw}deg)`, // Rotate to match yaw
                     left: '50%',
                     top: '50%',
                     marginLeft: '-12px', // Center the arrow base horizontally
                     marginTop: '-10px', // Adjust for arrow height
                     transformOrigin: 'center', // Rotate from the base
                     pointerEvents: 'none',
-                    // Dynamic positioning based on yaw
+
+                    /* dynamic translate + rotate and animation/transition */
                     transform: `translate(${xOffset}px, ${yOffset}px) rotate(${drone.yaw}deg)`,
-                  }} // Arrow styling
+                    opacity: 0,
+                    animation: 'fadeInPanelBtn 0.6s forwards',
+                    transition: 'background 0.3s, transform 0.3s, width 0.3s ease'
+                  }}
                 />
               </div>
             </Marker>
