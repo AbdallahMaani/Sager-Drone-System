@@ -95,13 +95,13 @@ function SidePanel({ drones, onDroneClick, selectedDroneId, visible, setVisible 
                     />
                   </div>
                   <div className="drone-serial">
-                    <span className="label">Serial #</span><span className="value">{d.serial}</span>
+                    <span className="label">Serial #</span><br /><span className="value">{d.serial}</span>
                   </div>
                   <div className="drone-registration">
-                    <span className="label">Registration #</span><span className="value">{d.registration}</span>
+                    <span className="label">Registration #</span><br /><span className="value">{d.registration}</span>
                   </div>
                   <div className="drone-pilot">
-                    <span className="label">Pilot</span><span className="value">{d.pilot}</span>
+                    <span className="label">Pilot</span><br /><span className="value">{d.pilot}</span>
                   </div>
                   <div className="drone-organization">
                     <span className="label">Organization</span><span className="value">{d.organization}</span>
