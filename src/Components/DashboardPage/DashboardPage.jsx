@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./DashboardPage.css";
-import Logo from './../Assets/SagerLogo.png';
 
 
 function DashboardPage({ drones }) {

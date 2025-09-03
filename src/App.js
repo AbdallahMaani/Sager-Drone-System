@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import Header from './Components/Header/Header.jsx';
 import DashboardBar from './Components/DashboardBar/DashboardBar.jsx';
 import SidePanel from './Components/SidePanel/SidePanel.jsx';
@@ -21,11 +21,10 @@ function App() {
     setActivePage("map"); // Always navigate to map view after click on a drone (if the user was on the dashboard page)
   };
 
-  const greenDronesCount = useMemo(() => // Count of green drones via useMemo state to optimize performance to avoid recalculating on every render
-    drones.filter(d => {
-      const regPart = d.registration.split('-')[1] || '';
-      return regPart[0]?.toUpperCase() === "B";
-    }).length, [drones]); //check of the regesrtion number starts with B after the ( - ) to highlight the drone as green color
+  const greenDronesCount = drones.filter(d => { //useMemo removed
+    const regPart = d.registration.split('-')[1] || '';
+    return regPart[0]?.toUpperCase() === "B";
+  }).length; //check of the regesrtion number starts with B after the ( - ) to highlight the drone as green color
 
   return (
     <div className="app">
